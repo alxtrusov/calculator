@@ -1,38 +1,35 @@
 class RealCalculator {
-    add(a, b) {
-        return a + b;
+    get(a) {
+        return (a instanceof Matrix ) ? new MatrixCalculator : 
+               (a instanceof Vector ) ? new VectorCalculator : 
+               (a instanceof Complex) ? new ComplexCalculator : new RealCalculator;
     }
 
-    sub(a, b) {
-        return a - b;
+    type(calc, elem, method) {
+        if (elem instanceof Matrix) {
+            return calc[method](elem.values.length, elem.values[0][0]);
+        } else if (elem instanceof Vector) {
+            return calc[method](elem.values.length, elem.values[0]);
+        }
+        return calc[method]();
     }
 
-    mult(a, b) {
-        return a * b;
-    }
+    add(a, b) { return a + b; }
 
-    div(a, b) {
-        return a / b;
-    }
+    sub(a, b) { return a - b; }
 
-    prod(p, a) {
-        return p * a;
-    }
+    mult(a, b) { return a * b; }
 
-    pow(a, n) {
-        return Math.pow(a, n);
-    }
+    div(a, b) { return a / b; }
 
-    one() {
-        return 1;
-    }
+    prod(p, a) { return p * a; }
 
-    zero() {
-        return 0;
-    }
+    pow(a, n) { return Math.pow(a, n); }
+
+    one() { return 1; }
+
+    zero() { return 0; }
 
     /* unused methods */
-    module(a) {
-        return Math.abs(a);
-    }
+    module(a) { return Math.abs(a); }
 }

@@ -1,45 +1,51 @@
 class VectorCalculator extends RealCalculator {
     add(a, b) {
-        return new Vector(a.values.map((elem, i) => elem + b.values[i]));
+        const calc = this.get(a.values[0]);
+        return new Vector(a.values.map((elem, i) => calc.add(elem, b.values[i])));
     }
 
     sub(a, b) {
-        return new Vector(a.values.map((elem, i) => elem - b.values[i]));
+        const calc = this.get(a.values[0]);
+        return new Vector(a.values.map((elem, i) => calc.sub(elem, b.values[i])));
     }
 
     // векторное произведение
     mult(a, b) {
+        const calc = this.get(a.values[0]);
         return new Vector([
-            a.values[1] * b.values[2] - a.values[2] * b.values[1],
-            a.values[2] * b.values[0] - a.values[0] * b.values[2],
-            a.values[0] * b.values[1] - a.values[1] * b.values[0]
+            calc.sub(calc.mult(a.values[1], b.values[2]), calc.mult(a.values[2], b.values[1])),
+            calc.sub(calc.mult(a.values[2], b.values[0]), calc.mult(a.values[0], b.values[2])),
+            calc.sub(calc.mult(a.values[0], b.values[1]), calc.mult(a.values[1], b.values[0]))
         ]);
     }
 
     prod(p, a) {
-        return new Vector(a.values.map(elem => elem * p));
+        const calc = this.get(a.values[0]);
+        return new Vector(a.values.map(elem => calc.prod(p, elem)));
     }
 
     pow(a, n) {
-        let c = this.one(a.values.length);
-        for (let i = 0; i < n; i++) {
-            c = this.mult(a, c);
+        let c = new Vector(a.values);
+        for (let i = 1; i < n; i++) {
+            c = this.mult(c, a);
         }
-        return c;        
+        return c;
     }
 
-    one(length) {
+    one(length, elem) {
+        const calc = this.get(elem);
         const values = [];
         for (let i = 0; i < length; i++) {
-            values.push(1);
+            values.push(this.type(calc, elem, 'one'));
         }
         return new Vector(values);
     }
 
-    zero(length) {
+    zero(length, elem) {
+        const calc = this.get(elem);
         const values = [];
         for (let i = 0; i < length; i++) {
-            values.push(0);
+            values.push(this.type(calc, elem, 'zero'));
         }
         return new Vector(values);
     }

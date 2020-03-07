@@ -1,6 +1,6 @@
 class Complex {
-    constructor(re, im) {
-        this.re = re || 0;
-        this.im = im || 0;
+    constructor(re = 0, im = 0) {
+        this.re = re;
+        this.im = im;
     }
 }
