@@ -1,0 +1,113 @@
+﻿
+body{
+    background-image: url(img/bg1.png);
+}
+input[type="text"] {
+    background-color: rgb(255,236,243);
+    text-align: center;
+    border: 2px;
+    outline: none;
+    width: 20px;
+    height: 20px;
+}
+input[type="button"]{
+    font-weight:700;
+}
+
+.elements {
+    float: left;
+    margin-right: 20px;
+}
+
+.control {
+    position: fixed;
+    right: 100px;
+    border-left: 2px solid;
+    padding-left: 10px;
+}
+
+.info{
+    padding-right:15%;
+}
+
+.calculator {
+    padding-top: 100px;
+    padding-left: 200px;
+}
+.button{
+    background:url(img/btn.jpg);
+}
+.buttons {
+    position: absolute;
+    left: 10px;
+    top: 80px;
+    float: left;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.Complex {
+    float: left;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.Matrix {
+    float: left;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.Matrix_inner{
+    float: left;
+    margin-top: 20px; 
+}
+.Vector {
+    float: left;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.Vector_inner {
+    margin-top: 7px;
+    float: left;
+}
+.Float {
+    float: left;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.Brace_left {
+    margin-top: 3%;
+    float: left;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.Brace_right {
+    margin-top: 3%;
+    float: left;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.Brace {
+}
+.Float-left {
+    float: left;
+}
+.c{
+    
+}
+.theBest{
+    position:absolute;
+    bottom: 0%;
+    right:0%;
+    width: 50px;
+    height: 50px;
+}
+.Equal {
+    float: left;
+}
+
+#pow{
+    position:absolute;
+    top:200px;
+    left: 10px;
+}

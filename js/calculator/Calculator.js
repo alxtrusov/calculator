@@ -1,64 +1,38 @@
-class Calculator extends RealCalculator {
+﻿function Calculator() {
+    BaseCalculator.call(this);
 
-    complex(re, im) {
-        return new Complex(re, im);
-    }
-
-    vector(values) {
-        return new Vector(values);
-    }
-
-    matrix(values) {
-        return new Matrix(values);
-    }
-
-    add(a, b) {
-        return this.get(a).add(a, b);
-    }
-
-    sub(a, b) {
-        return this.get(a).sub(a, b);
-    }
-
-    mult(a, b) {
-        return this.get(a).mult(a, b);
-    }
-
-    prod(p, a) {
-        if (typeof p === 'number') {
-            return this.get(a).prod(p, a);
+    function getCalculator(a) {
+        if (a instanceof Vector) {
+            return new VectorCalculator();
+        } else if (a instanceof Matrix) {
+            return new MatrixCalculator();
+        } else if (a instanceof Complex) {
+            return new ComplexCalculator();
         }
-        return null;
+        return new BaseCalculator();
+    };
+
+    this.add = function (a, b) {
+        return getCalculator(a).add(a, b);
+    };
+    this.sub = function (a, b) {
+        return getCalculator(a).sub(a, b);
+    };
+    this.mult = function (a, b) {
+        return getCalculator(a).mult(a, b);
+    };
+    this.div = function (a, b) {
+        return getCalculator(a).div(a, b);
+    };
+    this.scal = function (a, scal) {
+        return getCalculator(a).scal(a, scal);
+    };
+    this.module = function (a) {
+        return getCalculator(a).module(a);
     }
 
-    pow(a, n) {
-        if (typeof n === 'number') {
-            return this.get(a).pow(a, n);
-        }
-        return null;
-    }
+    this.zero = function (a) { return getCalculator(a).zero(); };
+    this.one  = function (a) { return getCalculator(a).one();  };
+};
 
-    one(type, elem) {
-        type = type ? type : (elem) ? elem.constructor.name : null;
-        switch (type) {
-            case 'Complex': return (new ComplexCalculator).one();
-            case 'Vector': return (new VectorCalculator).one(elem.values.length, elem.values[0]);
-            case 'Matrix': return (new MatrixCalculator).one(elem.values.length, elem.values[0][0]);
-            default: return 1;
-        }
-    }
-
-    zero(type, elem) {
-        type = type ? type : (elem) ? elem.constructor.name : null;
-        switch (type) {
-            case 'Complex': return (new ComplexCalculator).zero();
-            case 'Vector': return (new VectorCalculator).zero(elem.values.length, elem.values[0]);
-            case 'Matrix': return (new MatrixCalculator).zero(elem.values.length, elem.values[0][0]);
-            default: return 0;
-        }
-    }
-
-    /* unused methods */
-    module() { return null; }
-    div() { return null; }
-}
+ 
