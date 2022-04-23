@@ -1,0 +1,53 @@
+/***************фон***************/
+body {
+    background-color: #ffe0fd;
+}
+
+/****************************для мема****************************/
+.img {
+    height: 460px;
+    top: 290px;
+    left:  800px;
+    position: fixed;
+}
+
+.block_1 {
+    position: fixed;
+    z-index: 1;
+    top: 270px;
+    left: 1185px;
+    width: 60px;
+    height: 70px;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.block_1:hover .block_2 {
+    visibility: visible;
+}
+
+.block_1:hover {
+    background-size: cover;
+}
+
+.block_2 {
+    position: fixed;
+    visibility: hidden;
+    top: 357px;
+    left: 910px;
+}
+
+.block_2 p {
+    width: 265px;
+    height: 80px;
+    text-align: center;
+    font-size: 13pt;
+    background: #ffc8fc;
+}
+
+.block_2 img {
+    width: 250px;
+    height: 500px;
+}
+
+/****************************************************************/

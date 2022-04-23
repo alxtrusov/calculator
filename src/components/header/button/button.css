@@ -1,0 +1,30 @@
+/*******************кнопки*******************/
+.button{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.field {
+    background: #ffd8fd;
+    color: rgb(158, 6, 107);
+    font-size: 16pt;
+    text-align: center;
+    width: 240px;
+    height: 40px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.field:hover {
+    background: #ffc8fc;
+}
+
+.active {
+    background-color: #ffc8fc;
+
+}
+
+/********************************************/
