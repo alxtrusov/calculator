@@ -1,6 +1,15 @@
 import Complex from './types/Complex';
+import RealCalculator from './RealCalculator';
 
-class ComplexCalculator {
+class ComplexCalculator extends RealCalculator {
+
+    inv(a) {
+        return new Complex(
+            a.re / (a.re * a.re + a.im * a.im), -a.im / (a.re * a.re + a.im * a.im)
+        );
+    }
+
+    /* override methods */
     add(a, b) {
         return new Complex(a.re + b.re, a.im + b.im);
     }
@@ -16,12 +25,6 @@ class ComplexCalculator {
         );
     }
 
-    inv(a) {
-        return new Complex(
-            a.re / (a.re * a.re + a.im * a.im), -a.im / (a.re * a.re + a.im * a.im)
-        );
-    }
-
     div(a, b) {
         return new Complex(this.mult(a, this.inv(b)));
     }
@@ -30,20 +33,20 @@ class ComplexCalculator {
         return new Complex(p * a.re, p * a.im);
     }
 
-    zero() {
-        return new Complex;
-    }
-
-    one() {
-        return new Complex(1);
-    }
-
     pow(a, n) {
         let c = this.one();
         for (let i = 0; i < n; i++) {
             c = this.mult(a, c);
         }
         return c;
+    }
+
+    zero() {
+        return new Complex;
+    }
+
+    one() {
+        return new Complex(1);
     }
 }
 

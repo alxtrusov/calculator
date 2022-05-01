@@ -1,55 +1,39 @@
 import Vector from './types/Vector';
+import RealCalculator from './RealCalculator';
 
-class VectorCalculator {
-    addBase(a, b) { return a + b; }
-
-    subBase(a, b) { return a - b; }
-
-    multBase(a, b) { return a * b; }
-
+class VectorCalculator extends RealCalculator {
+    /* override methods */
     add(a, b) {
-        return new Vector(a.values.map((elem, i) => this.addBase(elem, b.values[i])));
+        return new Vector(a.values.map((elem, i) => super.add(elem, b.values[i])));
     }
 
     sub(a, b) {
-        return new Vector(a.values.map((elem, i) => this.subBase(elem, b.values[i])));
+        return new Vector(a.values.map((elem, i) => super.sub(elem, b.values[i])));
     }
-    
+
     mult(a, b) {
         return new Vector([
-            this.subBase(
-                this.multBase(a.values[1], b.values[2]), 
-                this.multBase(a.values[2], b.values[1])
+            super.sub(
+                super.mult(a.values[1], b.values[2]),
+                super.mult(a.values[2], b.values[1])
             ),
-            this.subBase(
-                this.multBase(a.values[2], b.values[0]), 
-                this.multBase(a.values[0], b.values[2])
+            super.sub(
+                super.mult(a.values[2], b.values[0]),
+                super.mult(a.values[0], b.values[2])
             ),
-            this.subBase(
-                this.multBase(a.values[0], b.values[1]), 
-                this.multBase(a.values[1], b.values[0])
+            super.sub(
+                super.mult(a.values[0], b.values[1]),
+                super.mult(a.values[1], b.values[0])
             )
         ]);
     }
 
+    div() {
+        return null;
+    }
+
     prod(a, p) {
-        return new Vector(a.values.map(elem => this.multBase(elem, p)));
-    }
-
-    zero(length) {
-        const values = [];
-        for (let i = 0; i < length; i++) {
-            values.push(0);
-        }
-        return new Vector(values);
-    }
-
-    one(length) {
-        const values = [];
-        for (let i = 0; i < length; i++) {
-            values.push(1);
-        }
-        return new Vector(values);
+        return new Vector(a.values.map(elem => super.mult(elem, p)));
     }
 
     pow(a, n) {
@@ -60,8 +44,20 @@ class VectorCalculator {
         return c;
     }
 
-    div() {
-        return null;
+    zero(length) {
+        const values = [];
+        for (let i = 0; i < length; i++) {
+            values.push(super.zero());
+        }
+        return new Vector(values);
+    }
+
+    one(length) {
+        const values = [];
+        for (let i = 0; i < length; i++) {
+            values.push(super.one());
+        }
+        return new Vector(values);
     }
 }
 

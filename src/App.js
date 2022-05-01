@@ -18,6 +18,37 @@ window.requestAnimFrame = (() => {
         };
 })();
 
+function Real() {
+    this.one = function () {
+        return 1;
+    }
+}
+
+function Complex() {
+    const parent = new Real;
+    this.one = function () {
+        return { re: parent.one(), im: 0 };
+    }
+}
+
+function Vector(Parent = Real) {
+    const parent = new Parent;
+    this.one = function () {
+        return [parent.one(), parent.one(), parent.one()];
+    }
+}
+
+function Matrix(Parent = Real) {
+    const parent = new Parent;
+    this.one = function () {
+        return [[parent.one(), 0], [0, parent.one()]];
+    }
+}
+
+const calc = new Matrix(Vector(Complex));
+console.log(calc.one());
+
+
 function App() {
 
     const [activeButton, setActiveButton] = useState('graph2D');
