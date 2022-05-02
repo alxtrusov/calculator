@@ -1,37 +1,33 @@
-import Matrix from './types/Matrix';
+import { Matrix } from '../types';
+import RealCalculator from './RealCalculator';
 
 class MatrixCalculator {
-    addBase(a, b) { return a + b; }
-
-    subBase(a, b) { return a - b; }
-
-    multBase(a, b) { return a * b; }
-
-    zeroBase() { return 0; }
-
-    oneBase() { return 1; }
-
+    constructor(calc = new RealCalculator) {
+        this.calc = calc;
+    }
+    
+    /* override methods */
     add(a, b) {
         return new Matrix(a.values.map((arr, i) =>
-            arr.map((elem, j) => this.addBase(elem, b.values[i][j])))
+            arr.map((elem, j) => this.calc.add(elem, b.values[i][j])))
         );
     }
 
     sub(a, b) {
         return new Matrix(a.values.map((arr, i) =>
-            arr.map((elem, j) => this.subBase(elem, b.values[i][j])))
+            arr.map((elem, j) => this.calc.sub(elem, b.values[i][j])))
         );
     }
 
     mult(a, b) {
-        const c = this.zero(a.values.length, a.values[0][0]);
+        const c = this.zero(a.values.length);
         for (let i = 0; i < c.values.length; i++) {
             for (let j = 0; j < c.values[i].length; j++) {
-                let S = this.zeroBase(a.values.length);
+                let S = this.calc.zero(a.values.length);
                 for (let k = 0; k < a.values.length; k++) {
-                    S = this.addBase(
+                    S = this.calc.add(
                         S,
-                        this.multBase(
+                        this.calc.mult(
                             a.values[i][k],
                             b.values[k][j])
                     );
@@ -42,32 +38,14 @@ class MatrixCalculator {
         return c;
     }
 
+    div() {
+        return null;
+    }
+
     prod(a, p) {
         return new Matrix(a.values.map((arr) =>
-            arr.map(elem => this.multBase(elem, p)))
+            arr.map(elem => this.calc.mult(elem, p)))
         );
-    }
-
-    zero(length) {
-        const values = [];
-        for (let i = 0; i < length; i++) {
-            values.push([]);
-            for (let j = 0; j < length; j++) {
-                values[i][j] = 0;
-            }
-        }
-        return new Matrix(values);
-    }
-
-    one(length) {
-        const values = [];
-        for (let i = 0; i < length; i++) {
-            values.push([]);
-            for (let j = 0; j < length; j++) {
-                values[i][j] = ((i === j) ? 1 : 0);
-            }
-        }
-        return new Matrix(values);
     }
 
     pow(a, n) {
@@ -78,8 +56,26 @@ class MatrixCalculator {
         return c;
     }
 
-    div() {
-        return null;
+    zero(length) {
+        const values = [];
+        for (let i = 0; i < length; i++) {
+            values.push([]);
+            for (let j = 0; j < length; j++) {
+                values[i][j] = this.calc.zero(length);
+            }
+        }
+        return new Matrix(values);
+    }
+
+    one(length) {
+        const values = [];
+        for (let i = 0; i < length; i++) {
+            values.push([]);
+            for (let j = 0; j < length; j++) {
+                values[i][j] = (i === j) ? this.calc.one(length) : this.calc.zero(length);
+            }
+        }
+        return new Matrix(values);
     }
 }
 

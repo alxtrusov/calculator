@@ -1,24 +1,19 @@
-import ComplexCalculator from './ComplexCalculator';
-import MatrixCalculator from './MatrixCalculator';
-import VectorCalculator from './VectorCalculator';
-import RealCalculator from './RealCalculator';
+import { Complex, Vector, Matrix } from './types';
+import { RealCalculator, ComplexCalculator, VectorCalculator, MatrixCalculator } from './calculators';
+//import Polynomial from '../polynomial/types/Polynomial';
+//import PolynomialCalculator from '../polynomial/PolynomialCalculator';
 
-import Complex from './types/Complex';
-import Matrix from './types/Matrix';
-import Vector from './types/Vector';
-import Member from '../polynomial/types/Member';
-import Polynomial from '../polynomial/types/Polynomial';
-
-class CalculatorBase extends RealCalculator {
+class UniversalCalculator {
+    /* Переводы из строки в соответствующий тип */
     toValue(str) {
-        if (str.includes('*x^')) { return this.toPolynomial(str); }
+        //if (str.includes('*x^')) { return this.toPolynomial(str); }
         if (str.includes('\n')) { return this.toMatrix(str); }
         if (str.includes('(')) { return this.toVector(str); }
         if (str.includes('i')) { return this.toComplex(str); }
         return str - 0;
     }
 
-    toPolynomial(str) {
+    /*toPolynomial(str) {
         if (str instanceof Array) return new Polynomial(str);
         if (typeof str == 'string' && str) {
             const members = [];
@@ -36,7 +31,7 @@ class CalculatorBase extends RealCalculator {
             const arrStr = str.split('*x^');
             return new Member(this.toValue(arrStr[0]), arrStr[1] - 0);
         }
-    }
+    }*/
 
     toComplex(str) {
         if (typeof str == 'number') return new Complex(str);
@@ -85,14 +80,14 @@ class CalculatorBase extends RealCalculator {
         return null;
     }
 
-    /****************типы****************/
-    member(value, power) {
+    /* Методы для получения типов */
+    /*member(value, power) {
         return new Member(value, power)
     }
 
     polynomial(members) {
         return new Polynomial(members);
-    }
+    }*/
 
     complex(re, im) {
         return new Complex(re, im);
@@ -106,9 +101,20 @@ class CalculatorBase extends RealCalculator {
         return new Matrix(values);
     }
 
-    /************************************/
+    /* Операции калькулятора */
+    get(elem) {
+        if (elem instanceof Matrix) {
+            return new MatrixCalculator(this.get(elem.values[0][0]));
+        }
+        if (elem instanceof Vector) {
+            return new VectorCalculator(this.get(elem.values[0]));
+        }
+        if (elem instanceof Complex) {
+            return new ComplexCalculator();
+        }
+        return new RealCalculator;
+    }
 
-    /******************************операци******************************/
     add(a, b) {
         return this.get(a).add(a, b);
     }
@@ -125,26 +131,6 @@ class CalculatorBase extends RealCalculator {
         return this.get(a).div(a, b)
     }
 
-    zero(type, elem) {
-        type = type ? type : elem ? elem.constructor.name : null;
-        switch (type) {
-            case 'Complex': return (new ComplexCalculator).zero();
-            case 'Vector': return (new VectorCalculator).zero(elem.values.length, elem.values[0]);
-            case 'Matrix': return (new MatrixCalculator).zero(elem.values.length, elem.values[0][0]);
-        }
-        return super.zero();
-    }
-
-    one(type, elem) {
-        type = type ? type : elem ? elem.constructor.name : null;
-        switch (type) {
-            case 'Complex': return (new ComplexCalculator).one();
-            case 'Vector': return (new VectorCalculator).one(elem.values.length, elem.values[0]);
-            case 'Matrix': return (new MatrixCalculator).one(elem.values.length, elem.values[0][0]);
-        }
-        return super.one();
-    }
-
     prod(a, p) {
         if (typeof p === 'number') {
             return this.get(a).prod(a, p);
@@ -158,7 +144,25 @@ class CalculatorBase extends RealCalculator {
         }
     }
 
-    /*******************************************************************/
+    zero(type, elem) {
+        type = type ? type : elem ? elem.constructor.name : null;
+        switch (type) {
+            case 'Complex': return this.get(this.complex()).zero();
+            case 'Vector': return this.get(this.vector()).zero(elem.values.length);
+            case 'Matrix': return this.get(this.matrix()).zero(elem.values.length);
+        }
+        return this.get().zero();
+    }
+
+    one(type, elem) {
+        type = type ? type : elem ? elem.constructor.name : null;
+        switch (type) {
+            case 'Complex': return this.get(this.complex()).one();
+            case 'Vector': return this.get(this.vector()).one(elem.values.length);
+            case 'Matrix': return this.get(this.matrix()).one(elem.values.length);
+        }
+        return this.get().one();
+    }
 }
 
-export default CalculatorBase;
+export default UniversalCalculator;

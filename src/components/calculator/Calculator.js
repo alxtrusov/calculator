@@ -1,7 +1,39 @@
 import React from 'react';
+import UniversalCalculator from '../../modules/calculator/UniversalCalculator';
+
 import './calculator.css';
 
 class Calculator extends React.Component {
+    constructor(props) {
+        super(props)
+
+        const calc = new UniversalCalculator;
+
+        const a = calc.vector([
+            calc.matrix([
+                [calc.complex(1, 2), calc.complex(3, 4)], 
+                [calc.complex(5, 6), calc.complex(7, 8)]
+            ]), 
+            calc.matrix([
+                [calc.complex(10, 20), calc.complex(30, 40)], 
+                [calc.complex(50, 60), calc.complex(70, 80)]
+            ])
+        ]);
+        const b = calc.vector([
+            calc.matrix([
+                [calc.complex(100, 200), calc.complex(300, 400)], 
+                [calc.complex(500, 600), calc.complex(700, 800)]
+            ]), 
+            calc.matrix([
+                [calc.complex(1000, 2000), calc.complex(3000, 4000)], 
+                [calc.complex(5000, 6000), calc.complex(7000, 8000)]
+            ])
+        ]);
+        const c = calc.add(a, b);
+
+        console.log(c)
+    }
+
     render() {
         return (
             <div>

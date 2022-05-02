@@ -1,4 +1,4 @@
-import Complex from './types/Complex';
+import { Complex } from '../types';
 import RealCalculator from './RealCalculator';
 
 class ComplexCalculator extends RealCalculator {
@@ -46,7 +46,7 @@ class ComplexCalculator extends RealCalculator {
     }
 
     one() {
-        return new Complex(1);
+        return new Complex(super.one());
     }
 }
 
