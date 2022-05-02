@@ -2,7 +2,7 @@ import { Vector } from '../types';
 import RealCalculator from './RealCalculator';
 
 class VectorCalculator {
-    constructor(calc = new RealCalculator) {
+    constructor(calc = new RealCalculator()) {
         this.calc = calc;
     }
     

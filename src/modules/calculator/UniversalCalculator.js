@@ -35,9 +35,9 @@ class UniversalCalculator {
 
     toComplex(str) {
         if (typeof str == 'number') return new Complex(str);
-        if (str && typeof str == 'string') {
+        if (str && typeof str === 'string') {
             const arrStr = str.split('i*');
-            if (arrStr.length == 2) {
+            if (arrStr.length === 2) {
                 if (arrStr[0].includes('+')) {
                     const arrRe = arrStr[0].split('+');
                     return new Complex(arrRe[0] - 0, arrStr[1] - 0);
@@ -48,7 +48,7 @@ class UniversalCalculator {
                 }
                 return null;
             }
-            if (arrStr.length == 1) {
+            if (arrStr.length === 1) {
                 if (isNaN(arrStr - 0)) { return null }
                 return new Complex(arrStr[0] - 0)
             }
@@ -112,7 +112,7 @@ class UniversalCalculator {
         if (elem instanceof Complex) {
             return new ComplexCalculator();
         }
-        return new RealCalculator;
+        return new RealCalculator();
     }
 
     add(a, b) {
@@ -150,8 +150,8 @@ class UniversalCalculator {
             case 'Complex': return this.get(this.complex()).zero();
             case 'Vector': return this.get(this.vector()).zero(elem.values.length);
             case 'Matrix': return this.get(this.matrix()).zero(elem.values.length);
+            default: return this.get().zero();
         }
-        return this.get().zero();
     }
 
     one(type, elem) {
@@ -160,8 +160,8 @@ class UniversalCalculator {
             case 'Complex': return this.get(this.complex()).one();
             case 'Vector': return this.get(this.vector()).one(elem.values.length);
             case 'Matrix': return this.get(this.matrix()).one(elem.values.length);
+            default: return this.get().one();
         }
-        return this.get().one();
     }
 }
 

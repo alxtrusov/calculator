@@ -42,7 +42,7 @@ class ComplexCalculator extends RealCalculator {
     }
 
     zero() {
-        return new Complex;
+        return new Complex();
     }
 
     one() {

@@ -2,7 +2,7 @@ import { Matrix } from '../types';
 import RealCalculator from './RealCalculator';
 
 class MatrixCalculator {
-    constructor(calc = new RealCalculator) {
+    constructor(calc = new RealCalculator()) {
         this.calc = calc;
     }
     

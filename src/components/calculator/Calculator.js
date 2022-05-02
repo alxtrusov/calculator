@@ -7,7 +7,7 @@ class Calculator extends React.Component {
     constructor(props) {
         super(props)
 
-        const calc = new UniversalCalculator;
+        const calc = new UniversalCalculator();
 
         const a = calc.vector([
             calc.matrix([
@@ -61,14 +61,14 @@ class Calculator extends React.Component {
                     <button className="operands btn operation" data-operand="zero"> Zero </button>
                 </div>
                 <div>
-                    <a className='rules'>
-                        <h3>формат ввода:</h3>
+                    <h3>формат ввода:</h3>
+                    <p className='rules'>
                         обычные числа ( 1 )<br></br>
                         комплексные числа ( 1+/-i*2 )<br></br>
                         вектора ( (1 2 3) )<br></br>
                         матрицы ( 1, 2 /n 3, 4 )<br></br>
                         полиномиалы ( 1*x^2+/-2*x^3 )
-                    </a>
+                    </p>
                 </div>
             </div>
         );
