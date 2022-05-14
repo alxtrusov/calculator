@@ -1,28 +1,21 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './button.css';
 
-class Button extends React.Component {
-    constructor(props) {
-        super(props);
-        const { title, name, isActive, onClick } = props;
-        this.name = name;
-        this.title = title;
-        this.isActive = isActive === name;
-        this.onClick = onClick;
+function Button(props) {
+    const { title, path, isActive, onClick } = props;
+    const navigate = useNavigate();
+
+    const onClickHandler = () => {
+        onClick(path);
+        navigate(path);
     }
 
-    setActive() {
-        return `field ${this.isActive ? 'active' : ''}`;
-    }
-
-    render() {
-        return (
-            <div
-                className={this.setActive()}
-                onClick={() => this.onClick(this.name)}
-            >{this.title}</div>
-        );
-    }
+    return (
+        <div
+            className={`field ${isActive === path ? 'active' : ''}`}
+            onClick={onClickHandler}
+        >{title}</div>
+    );
 }
 
 export default Button;

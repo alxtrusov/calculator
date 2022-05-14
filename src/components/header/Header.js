@@ -1,46 +1,32 @@
-import React from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from './button/Button';
 import './header.css';
 
-class Header extends React.Component {
-    constructor(props) {
-        super(props);
-        const { activeButton, setActiveButton } = props;
-        this.state = { activeButton: activeButton };
-        this.setActiveButton = setActiveButton;
-    }
+function Header(props) {
+    const { ROUTES } = props;
+    const [activeButton, setActiveButton] = useState(ROUTES.CALCULATOR.path);
+    const navigate = useNavigate();
 
-    onClick(name) {
-        this.setState({ activeButton: name });
-        this.setActiveButton(name);
-    }
-
-    render() {
-        return (
-            <div>
-                <div className='button'>
-                    <Button
-                        onClick={(name) => this.onClick(name)}
-                        isActive={this.state.activeButton}
-                        name='calculator'
-                        title='Калькулятор'
-                    ></Button>
-                    <Button
-                        onClick={(name) => this.onClick(name)}
-                        isActive={this.state.activeButton}
-                        name='graph2D'
-                        title='Графика 2D'
-                    ></Button>
-                    <Button
-                        onClick={(name) => this.onClick(name)}
-                        isActive={this.state.activeButton}
-                        name='graph3D'
-                        title='Графика 3D'
-                    ></Button>
-                </div>
+    return (
+        <div>
+            <div className='button'>
+                {Object.values(ROUTES).map(route =>
+                    route.path !== '/' ?
+                        <Button
+                            key={route.path}
+                            onClick={setActiveButton}
+                            isActive={activeButton}
+                            path={route.path}
+                            title={route.title}
+                        ></Button> : '')}
+                <div
+                    className='field'
+                    onClick={() => navigate(-1)}
+                >Назад</div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default Header;

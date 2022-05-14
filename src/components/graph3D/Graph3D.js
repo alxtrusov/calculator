@@ -387,6 +387,7 @@ class Graph3D extends React.Component {
             });
         }*/
 
+        /*
         //print polygons
         if (this.drawPolygons) {
             const polygons = [];
@@ -465,6 +466,7 @@ class Graph3D extends React.Component {
             8,
             '#ffff63'
         );
+        */
 
         //вывод FPS
         this.canvas.text(`FPS: ${this.FPS}`, -9.6, 9, '#50fc01');
