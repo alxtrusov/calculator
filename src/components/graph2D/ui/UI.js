@@ -6,11 +6,8 @@ import './ui.css';
 class UI extends React.Component {
     constructor(props) {
         super(props);
-        const { funcs, addFunction, run, delFunction } = props;
-        this.funcs = funcs;
-        this.addFunction = addFunction;
-        this.delFunction = delFunction;
-        this.run = run;
+        const { store } = props;
+        this.store = store;
         this.state = { showPanel: false };
     }
 
@@ -23,11 +20,8 @@ class UI extends React.Component {
             <div>
                 {this.state.showPanel ? 
                     <Panel 
-                        funcs={this.funcs} 
+                        store={this.store} 
                         close={() => this.togglePanel()}
-                        addFunction={() => this.addFunction()}
-                        delFunction={(index) => this.delFunction(index)}
-                        run={() => this.run()}
                     ></Panel> : ''}
                 <button 
                     className="draw" 

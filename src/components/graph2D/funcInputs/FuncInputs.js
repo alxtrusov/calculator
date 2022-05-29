@@ -5,10 +5,9 @@ import './funcInputs.css';
 class FuncInputs extends React.Component {
     constructor(props) {
         super(props);
-        const { func, run, delFunction, index } = props;
+        const { func, delFunction, index } = props;
         this.index = index;
         this.func = func;
-        this.run = run;
         this.delFunction = delFunction;
     }
 
@@ -18,7 +17,6 @@ class FuncInputs extends React.Component {
             eval(`f = function(x){return ${e.target.value};}`);
             this.func.f = f;
             this.func.value = e.target.value;
-            this.run();
         } catch (e) {
             //console.log(e);
         }
@@ -26,7 +24,6 @@ class FuncInputs extends React.Component {
 
     setColor(e) {
         this.func.color = e.target.value;
-        this.run();
     }
 
     render() {

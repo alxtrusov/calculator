@@ -5,6 +5,8 @@ import Calculator from './components/calculator/Calculator';
 import Graph2D from './components/graph2D/Graph2D';
 import Graph3D from './components/graph3D/Graph3D';
 
+import store from './store/store';
+
 import './App.css';
 
 import ROUTES from './components/Routes';
@@ -25,13 +27,13 @@ function App() {
     return (
         <div className="App">
             <BrowserRouter>
-            <Header ROUTES={ROUTES} />
-            <Routes>
-                <Route exact path={ROUTES.MAIN.path} element={<Calculator/>}/>
-                <Route exact path={ROUTES.CALCULATOR.path} element={<Calculator/>}/>
-                <Route exact path={ROUTES.GRAPH_2D.path} element={<Graph2D/>}/>
-                <Route exact path={ROUTES.GRAPH_3D.path} element={<Graph3D/>}/>
-            </Routes>
+                <Header ROUTES={ROUTES} />
+                <Routes>
+                    <Route exact path={ROUTES.MAIN.path} element={<Calculator />} />
+                    <Route exact path={ROUTES.CALCULATOR.path} element={<Calculator />} />
+                    <Route exact path={ROUTES.GRAPH_2D.path} element={<Graph2D store={store} />} />
+                    <Route exact path={ROUTES.GRAPH_3D.path} element={<Graph3D />} />
+                </Routes>
             </BrowserRouter>
         </div>
     );
